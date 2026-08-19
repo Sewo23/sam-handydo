@@ -1,0 +1,65 @@
+---
+import Button from './Button.astro';
+import { SITE } from '../data/site';
+---
+
+<section class="hero-premium relative min-h-[100svh] flex items-center overflow-hidden">
+	<!-- Decorative arcs -->
+	<div class="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+		<div class="absolute -top-24 -right-24 w-[500px] h-[500px] rounded-full border border-gold/10"></div>
+		<div class="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full border border-sage/10 translate-y-1/2 -translate-x-1/4"></div>
+	</div>
+
+	<div class="relative max-w-6xl mx-auto w-full px-6 lg:px-8 pt-28 pb-20 lg:pt-32">
+		<div class="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+			<div class="lg:col-span-7 animate-fade-up">
+				<p class="font-sans text-xs uppercase tracking-[0.35em] text-gold-light mb-6">
+					Premium Craftsman · Ireland
+				</p>
+
+				<h1 class="font-serif font-semibold text-ivory leading-[1.05] mb-6">
+					<span class="block text-[clamp(2.5rem,6vw,4.25rem)]">Where home meets</span>
+					<span class="block text-[clamp(2.75rem,7vw,5rem)] italic text-gold-light">the garden.</span>
+				</h1>
+
+				<p class="font-sans text-ivory/70 text-lg md:text-xl leading-relaxed max-w-xl mb-10">
+					One skilled craftsman for everything your property needs — repairs indoors,
+					beauty outdoors, and the finishing touches that tie it all together.
+				</p>
+
+				<div class="flex flex-wrap gap-4">
+					<Button href="#contact" size="lg">Book a Consultation</Button>
+					<Button href="#services" variant="outline" size="lg">Explore Services</Button>
+				</div>
+
+				<p class="mt-10 font-sans text-sm text-ivory/45 tracking-wide">
+					Serving {SITE.areasServed.join(' · ')}
+				</p>
+			</div>
+
+			<div class="lg:col-span-5 flex justify-center lg:justify-end animate-fade-up-delay-2">
+				<div class="relative">
+					<div class="absolute inset-0 logo-halo scale-150" aria-hidden="true"></div>
+					<div class="relative bg-forest-deep/60 backdrop-blur-sm border border-gold/25 rounded-2xl p-10 md:p-12 shadow-2xl shadow-black/20">
+						<img
+							src="/logo.png"
+							alt=""
+							width="200"
+							height="200"
+							class="w-40 h-40 md:w-48 md:h-48 object-contain mx-auto"
+							aria-hidden="true"
+						/>
+						<div class="gold-rule my-6"></div>
+						<p class="font-serif text-center text-ivory/90 text-xl italic leading-snug">
+							Golden hands for<br />home & garden
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-fade-up-delay-2" aria-hidden="true">
+		<div class="w-px h-12 bg-gradient-to-b from-gold/50 to-transparent"></div>
+	</div>
+</section>

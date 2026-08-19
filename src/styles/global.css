@@ -1,0 +1,93 @@
+@import "tailwindcss";
+@import "@fontsource/cormorant-garamond/400.css";
+@import "@fontsource/cormorant-garamond/500.css";
+@import "@fontsource/cormorant-garamond/600.css";
+@import "@fontsource/cormorant-garamond/700.css";
+@import "@fontsource/dm-sans/400.css";
+@import "@fontsource/dm-sans/500.css";
+@import "@fontsource/dm-sans/600.css";
+
+@theme {
+	--color-forest: #1a3328;
+	--color-forest-deep: #122419;
+	--color-forest-soft: #2a4a3a;
+	--color-sage: #8fa892;
+	--color-sage-light: #c5d4c7;
+
+	--color-ivory: #faf8f4;
+	--color-champagne: #f3ede3;
+	--color-stone: #e8e2d8;
+
+	--color-gold: #c4a035;
+	--color-gold-light: #dbb84a;
+	--color-gold-muted: #e8d9a8;
+	--color-gold-deep: #9a7b28;
+
+	--color-ink: #1c2420;
+	--color-ink-soft: #5a6560;
+
+	--font-serif: "Cormorant Garamond", Georgia, serif;
+	--font-sans: "DM Sans", system-ui, sans-serif;
+}
+
+@keyframes fadeUp {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.animate-fade-up {
+	animation: fadeUp 0.9s ease-out forwards;
+	opacity: 0;
+}
+
+.animate-fade-up-delay {
+	animation: fadeUp 0.9s ease-out 0.15s forwards;
+	opacity: 0;
+}
+
+.animate-fade-up-delay-2 {
+	animation: fadeUp 0.9s ease-out 0.3s forwards;
+	opacity: 0;
+}
+
+/* Premium hero atmosphere */
+.hero-premium {
+	background:
+		radial-gradient(ellipse 80% 60% at 70% 20%, rgba(196, 160, 53, 0.12) 0%, transparent 55%),
+		radial-gradient(ellipse 60% 50% at 10% 80%, rgba(42, 74, 58, 0.4) 0%, transparent 50%),
+		linear-gradient(165deg, var(--color-forest-deep) 0%, var(--color-forest) 45%, var(--color-forest-soft) 100%);
+}
+
+/* Fine gold divider */
+.gold-rule {
+	height: 1px;
+	background: linear-gradient(
+		90deg,
+		transparent,
+		var(--color-gold-muted) 20%,
+		var(--color-gold) 50%,
+		var(--color-gold-muted) 80%,
+		transparent
+	);
+}
+
+/* Soft card glow on hover */
+.card-premium {
+	transition: box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+.card-premium:hover {
+	box-shadow: 0 20px 50px -12px rgba(26, 51, 40, 0.15);
+	transform: translateY(-2px);
+}
+
+/* Logo halo */
+.logo-halo {
+	background: radial-gradient(circle, rgba(196, 160, 53, 0.15) 0%, transparent 70%);
+}

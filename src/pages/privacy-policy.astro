@@ -1,0 +1,33 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { SITE } from '../data/site';
+
+const title = `Privacy Policy | ${SITE.name}`;
+const description = `Privacy policy for ${SITE.name}.`;
+---
+
+<Layout title={title} description={description} canonicalPath="/privacy-policy/">
+	<div class="min-h-screen bg-ivory pt-28 pb-16">
+		<div class="max-w-2xl mx-auto px-6">
+			<h1 class="font-serif text-4xl text-forest font-medium mb-8">Privacy Policy</h1>
+			<div class="space-y-6 font-sans text-ink-soft leading-relaxed text-sm">
+				<p>
+					<strong class="text-forest">{SITE.name}</strong> respects your privacy. This policy explains how we handle
+					data when you contact us through our website.
+				</p>
+				<h2 class="font-serif text-xl text-forest font-medium">What we collect</h2>
+				<p>Name, email, phone (optional), and your message when you use our contact form.</p>
+				<h2 class="font-serif text-xl text-forest font-medium">How we use it</h2>
+				<p>Only to respond to your enquiry and provide our services. We do not sell your data.</p>
+				<h2 class="font-serif text-xl text-forest font-medium">Your rights</h2>
+				<p>
+					Under GDPR you may access, correct, or delete your data. Contact{' '}
+					<a href={`mailto:${SITE.email}`} class="text-gold-deep underline">{SITE.email}</a>.
+				</p>
+			</div>
+			<p class="mt-12">
+				<a href="/" class="font-sans text-sm text-gold-deep hover:text-gold transition-colors">&larr; Back to homepage</a>
+			</p>
+		</div>
+	</div>
+</Layout>

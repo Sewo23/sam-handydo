@@ -1,0 +1,40 @@
+---
+interface Props {
+	href?: string;
+	type?: 'button' | 'submit';
+	variant?: 'gold' | 'outline' | 'light';
+	size?: 'sm' | 'md' | 'lg';
+	class?: string;
+}
+
+const { href, type = 'button', variant = 'gold', size = 'md', class: className = '' } = Astro.props;
+
+const base =
+	'inline-flex items-center justify-center font-sans font-semibold tracking-wide transition-all duration-300 rounded-full';
+
+const sizes = {
+	sm: 'text-xs px-5 py-2.5',
+	md: 'text-sm px-7 py-3',
+	lg: 'text-sm px-9 py-4',
+};
+
+const variants = {
+	gold: 'bg-gold text-forest-deep hover:bg-gold-light shadow-md shadow-gold/20',
+	outline: 'border border-gold/60 text-gold hover:bg-gold/10',
+	light: 'bg-ivory text-forest hover:bg-champagne border border-stone',
+};
+
+const classes = `${base} ${sizes[size]} ${variants[variant]} ${className}`;
+---
+
+{
+	href ? (
+		<a href={href} class={classes}>
+			<slot />
+		</a>
+	) : (
+		<button type={type} class={classes}>
+			<slot />
+		</button>
+	)
+}

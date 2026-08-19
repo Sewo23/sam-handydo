@@ -1,0 +1,30 @@
+---
+import { SITE } from '../data/site';
+---
+
+<footer class="bg-forest-deep py-14 border-t border-gold/10">
+	<div class="max-w-6xl mx-auto px-6 lg:px-8">
+		<div class="flex flex-col md:flex-row items-center justify-between gap-8">
+			<div class="flex items-center gap-4">
+				<img src="/logo.png" alt="" width="44" height="44" class="w-11 h-11 object-contain opacity-90" aria-hidden="true" />
+				<div>
+					<p class="font-serif text-lg text-ivory">Sam Handy Do</p>
+					<p class="font-sans text-[10px] uppercase tracking-[0.2em] text-gold-muted">Home & Garden Craftsman</p>
+				</div>
+			</div>
+
+			<nav class="flex flex-wrap justify-center gap-x-8 gap-y-2 font-sans text-sm text-ivory/50" aria-label="Footer">
+				<a href="#services" class="hover:text-gold-light transition-colors">Services</a>
+				<a href="#about" class="hover:text-gold-light transition-colors">About</a>
+				<a href="#contact" class="hover:text-gold-light transition-colors">Contact</a>
+				<a href="/privacy-policy/" class="hover:text-gold-light transition-colors">Privacy</a>
+			</nav>
+		</div>
+
+		<div class="gold-rule my-8"></div>
+
+		<p class="text-center font-sans text-xs text-ivory/30">
+			&copy; {new Date().getFullYear()} {SITE.name} · {SITE.areasServed.join(' · ')}
+		</p>
+	</div>
+</footer>

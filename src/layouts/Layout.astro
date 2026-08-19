@@ -1,0 +1,95 @@
+---
+import '../styles/global.css';
+import { SITE, services } from '../data/site';
+
+interface Props {
+	title?: string;
+	description?: string;
+	ogDescription?: string;
+	canonicalPath?: string;
+}
+
+const {
+	title = SITE.title,
+	description = SITE.description,
+	ogDescription = SITE.ogDescription,
+	canonicalPath = '/',
+} = Astro.props;
+
+const canonical = new URL(canonicalPath, SITE.url).href;
+const ogImageUrl = new URL('/logo.png', SITE.url).href;
+
+const jsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'HomeAndConstructionBusiness',
+	name: SITE.name,
+	url: SITE.url,
+	email: SITE.email,
+	telephone: SITE.phoneDisplay,
+	description: SITE.description,
+	image: ogImageUrl,
+	areaServed: SITE.areasServed.map((area) => ({
+		'@type': 'AdministrativeArea',
+		name: area,
+	})),
+	address: {
+		'@type': 'PostalAddress',
+		addressCountry: 'IE',
+	},
+	contactPoint: {
+		'@type': 'ContactPoint',
+		telephone: SITE.phoneDisplay,
+		email: SITE.email,
+		contactType: 'customer service',
+		areaServed: SITE.areasServed,
+		availableLanguage: ['English'],
+	},
+	hasOfferCatalog: {
+		'@type': 'OfferCatalog',
+		name: 'Handyman Services',
+		itemListElement: services.map((service, index) => ({
+			'@type': 'Offer',
+			position: index + 1,
+			itemOffered: {
+				'@type': 'Service',
+				name: service.title,
+				description: service.description,
+			},
+		})),
+	},
+};
+---
+
+<!doctype html>
+<html lang="en-IE" class="scroll-smooth">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content={description} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={ogDescription} />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:image" content={ogImageUrl} />
+		<meta property="og:locale" content="en_IE" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={ogDescription} />
+		<meta name="twitter:image" content={ogImageUrl} />
+		<link rel="canonical" href={canonical} />
+		<title>{title}</title>
+		<link rel="icon" type="image/png" href="/favicon.png" />
+		<link rel="apple-touch-icon" href="/logo.png" />
+		<link rel="preload" as="image" href="/logo.png" fetchpriority="high" />
+		<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+	</head>
+	<body class="bg-ivory text-ink font-sans antialiased">
+		<a
+			href="#main-content"
+			class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-gold focus:px-4 focus:py-2 focus:text-forest-deep focus:font-sans focus:font-semibold focus:rounded-full focus:outline-none"
+		>
+			Skip to content
+		</a>
+		<slot />
+	</body>
+</html>

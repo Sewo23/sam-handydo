@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://samhandydo.ie/sitemap-index.xml

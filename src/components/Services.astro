@@ -1,0 +1,67 @@
+---
+import { services } from '../data/site';
+
+const homeServices = services.filter((s) => s.category === 'Home');
+const gardenServices = services.filter((s) => s.category === 'Garden');
+---
+
+<section id="services" class="bg-champagne py-24 md:py-32">
+	<div class="max-w-6xl mx-auto px-6 lg:px-8">
+		<div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
+			<div>
+				<p class="font-sans text-xs uppercase tracking-[0.3em] text-gold-deep mb-3">What We Do</p>
+				<h2 class="font-serif text-4xl md:text-5xl text-forest font-medium">Services</h2>
+			</div>
+			<p class="font-sans text-ink-soft max-w-md leading-relaxed md:text-right">
+				From the kitchen shelf to the garden fence — premium care for every part of your home.
+			</p>
+		</div>
+
+		<div class="grid lg:grid-cols-2 gap-12 lg:gap-16">
+			<!-- Home column -->
+			<div>
+				<div class="flex items-center gap-4 mb-8">
+					<div class="w-10 h-10 rounded-full bg-forest flex items-center justify-center">
+						<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-gold" aria-hidden="true">
+							<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+							<polyline points="9 22 9 12 15 12 15 22"></polyline>
+						</svg>
+					</div>
+					<h3 class="font-serif text-2xl text-forest font-medium">Inside Your Home</h3>
+				</div>
+				<div class="space-y-4">
+					{
+						homeServices.map((service) => (
+							<div class="card-premium bg-ivory border border-stone/80 rounded-xl p-6 md:p-7">
+								<h4 class="font-serif text-xl text-forest font-medium mb-2">{service.title}</h4>
+								<p class="font-sans text-sm text-ink-soft leading-relaxed">{service.description}</p>
+							</div>
+						))
+					}
+				</div>
+			</div>
+
+			<!-- Garden column -->
+			<div>
+				<div class="flex items-center gap-4 mb-8">
+					<div class="w-10 h-10 rounded-full bg-forest flex items-center justify-center">
+						<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-gold" aria-hidden="true">
+							<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+						</svg>
+					</div>
+					<h3 class="font-serif text-2xl text-forest font-medium">Outside & Garden</h3>
+				</div>
+				<div class="space-y-4">
+					{
+						gardenServices.map((service) => (
+							<div class="card-premium bg-ivory border border-stone/80 rounded-xl p-6 md:p-7">
+								<h4 class="font-serif text-xl text-forest font-medium mb-2">{service.title}</h4>
+								<p class="font-sans text-sm text-ink-soft leading-relaxed">{service.description}</p>
+							</div>
+						))
+					}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

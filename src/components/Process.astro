@@ -1,0 +1,28 @@
+---
+import { processSteps } from '../data/site';
+---
+
+<section id="process" class="bg-forest py-24 md:py-32">
+	<div class="max-w-6xl mx-auto px-6 lg:px-8">
+		<div class="text-center mb-16">
+			<p class="font-sans text-xs uppercase tracking-[0.3em] text-gold-light mb-3">How It Works</p>
+			<h2 class="font-serif text-4xl md:text-5xl text-ivory font-medium">Simple. Clear. Premium.</h2>
+		</div>
+
+		<div class="grid md:grid-cols-3 gap-10 md:gap-8 relative">
+			<div class="hidden md:block absolute top-8 left-[16.67%] right-[16.67%] h-px bg-gold/20" aria-hidden="true"></div>
+
+			{
+				processSteps.map((step, i) => (
+					<div class="relative text-center md:text-left">
+						<div class="w-16 h-16 rounded-full border border-gold/40 bg-forest-deep flex items-center justify-center mx-auto md:mx-0 mb-6 relative z-10">
+							<span class="font-serif text-2xl text-gold-light">{i + 1}</span>
+						</div>
+						<h3 class="font-serif text-2xl text-ivory font-medium mb-3">{step.title}</h3>
+						<p class="font-sans text-ivory/60 text-sm leading-relaxed">{step.detail}</p>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>
