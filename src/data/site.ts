@@ -7,10 +7,10 @@ export const SITE = {
 		'One skilled craftsman for your entire property — home repairs, garden care, outdoor living, and finishing touches. Premium workmanship across Dublin and surrounding counties.',
 	ogDescription:
 		'Inside the house, outside in the garden — SAM HANDY DO brings golden-hands craftsmanship to every corner of your home.',
-	phone: '+353000000000',
-	phoneDisplay: '+353 00 000 0000',
-	email: 'hello@samhandydo.ie',
-	whatsapp: '353000000000',
+	phone: '+353857168645',
+	phoneDisplay: '085 716 8645',
+	email: 'samhandydo@gmail.com',
+	whatsapp: '353857168645',
 	whatsappDefaultMessage: "Hi, I'd like to discuss a home or garden project.",
 	areasServed: ['Dublin', 'Kildare', 'Meath', 'Wicklow'],
 } as const;
