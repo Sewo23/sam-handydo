@@ -1,1 +1,4 @@
 /success /success/ 301
+http://samhandydo.ie/* https://samhandydo.ie/:splat 301!
+http://www.samhandydo.ie/* https://samhandydo.ie/:splat 301!
+https://www.samhandydo.ie/* https://samhandydo.ie/:splat 301!
