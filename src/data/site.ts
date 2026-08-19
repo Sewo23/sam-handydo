@@ -66,12 +66,6 @@ export const services = [
 	},
 ] as const;
 
-export const stats = [
-	{ value: '500+', label: 'Projects Delivered' },
-	{ value: 'Home & Garden', label: 'One Craftsman' },
-	{ value: 'Free', label: 'Consultation & Quote' },
-] as const;
-
 export const processSteps = [
 	{
 		title: 'Share Your Vision',

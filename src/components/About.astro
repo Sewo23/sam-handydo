@@ -1,57 +1,25 @@
 ---
-import { stats, SITE } from '../data/site';
+import { SITE } from '../data/site';
 import Button from './Button.astro';
 ---
 
 <section id="about" class="bg-ivory py-24 md:py-32">
-	<div class="max-w-6xl mx-auto px-6 lg:px-8">
-		<div class="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center">
-			<div>
-				<p class="font-sans text-xs uppercase tracking-[0.3em] text-gold-deep mb-3">About Sam</p>
-				<h2 class="font-serif text-4xl md:text-[2.75rem] text-forest font-medium leading-tight mb-6">
-					The person who can<br />
-					<span class="italic text-gold-deep">do it all.</span>
-				</h2>
-				<p class="font-sans text-ink-soft leading-relaxed mb-5">
-					SAM HANDY DO is built around a simple idea: your home and garden deserve the same
-					level of care. Not a different trade for every room — one experienced craftsman
-					who understands the whole property.
-				</p>
-				<p class="font-sans text-ink-soft leading-relaxed mb-8">
-					Whether it's fixing a door, planting a border, or refreshing an entire outdoor space —
-					every job is approached with patience, skill, and respect for your home.
-				</p>
-				<Button href="#contact">Start a Conversation</Button>
-			</div>
-
-			<div class="space-y-8">
-				<div class="grid grid-cols-3 gap-4">
-					{
-						stats.map((stat) => (
-							<div class="text-center bg-champagne border border-stone rounded-xl py-6 px-2">
-								<p class="font-serif text-2xl md:text-3xl text-gold-deep font-semibold leading-none mb-2">
-									{stat.value}
-								</p>
-								<p class="font-sans text-[10px] uppercase tracking-wider text-ink-soft leading-tight">
-									{stat.label}
-								</p>
-							</div>
-						))
-					}
-				</div>
-
-				<blockquote class="relative bg-forest rounded-2xl p-8 md:p-10 overflow-hidden">
-					<div class="absolute top-0 right-0 w-32 h-32 bg-gold/5 rounded-full -translate-y-1/2 translate-x-1/2" aria-hidden="true"></div>
-					<p class="font-serif text-xl md:text-2xl text-ivory/90 italic leading-relaxed relative">
-						"A beautiful home isn't just what's inside — it's the garden, the details,
-						and knowing one person you can trust for all of it."
-					</p>
-					<footer class="mt-4 font-sans text-xs uppercase tracking-widest text-gold-light relative">
-						— Sam Handy Do
-					</footer>
-				</blockquote>
-			</div>
-		</div>
+	<div class="max-w-3xl mx-auto px-6 lg:px-8">
+		<p class="font-sans text-xs uppercase tracking-[0.3em] text-gold-deep mb-3">About Sam</p>
+		<h2 class="font-serif text-4xl md:text-[2.75rem] text-forest font-medium leading-tight mb-6">
+			The person who can<br />
+			<span class="italic text-gold-deep">do it all.</span>
+		</h2>
+		<p class="font-sans text-ink-soft leading-relaxed mb-5">
+			SAM HANDY DO is built around a simple idea: your home and garden deserve the same
+			level of care. Not a different trade for every room — one experienced craftsman
+			who understands the whole property.
+		</p>
+		<p class="font-sans text-ink-soft leading-relaxed mb-8">
+			Whether it's fixing a door, planting a border, or refreshing an entire outdoor space —
+			every job is approached with patience, skill, and respect for your home.
+		</p>
+		<Button href="#contact">Start a Conversation</Button>
 	</div>
 </section>
 
