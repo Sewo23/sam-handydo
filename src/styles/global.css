@@ -91,3 +91,61 @@
 .logo-halo {
 	background: radial-gradient(circle, rgba(196, 160, 53, 0.15) 0%, transparent 70%);
 }
+
+/* Pointer flashlight — soft gold spotlight under cursor / finger */
+.pointer-flashlight {
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	z-index: 9998;
+	opacity: 0;
+	transition: opacity 0.25s ease;
+	background: radial-gradient(
+		circle 140px at var(--fx, -200px) var(--fy, -200px),
+		rgba(219, 184, 74, 0.22) 0%,
+		rgba(196, 160, 53, 0.1) 28%,
+		transparent 62%
+	);
+}
+
+.pointer-flashlight.is-active {
+	opacity: 1;
+}
+
+.pointer-flashlight.is-press {
+	background: radial-gradient(
+		circle 180px at var(--fx, -200px) var(--fy, -200px),
+		rgba(219, 184, 74, 0.38) 0%,
+		rgba(196, 160, 53, 0.16) 32%,
+		transparent 68%
+	);
+}
+
+.pointer-flash-ring {
+	position: fixed;
+	width: 42px;
+	height: 42px;
+	margin: -21px 0 0 -21px;
+	border-radius: 9999px;
+	border: 1.5px solid rgba(219, 184, 74, 0.55);
+	box-shadow: 0 0 24px rgba(196, 160, 53, 0.35);
+	pointer-events: none;
+	z-index: 9999;
+	opacity: 0;
+	transform: scale(0.55);
+	transition:
+		opacity 0.35s ease,
+		transform 0.45s ease;
+}
+
+.pointer-flash-ring.is-burst {
+	opacity: 1;
+	transform: scale(1.65);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.pointer-flashlight,
+	.pointer-flash-ring {
+		display: none !important;
+	}
+}

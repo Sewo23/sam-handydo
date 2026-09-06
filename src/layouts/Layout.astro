@@ -91,5 +91,65 @@ const jsonLd = {
 			Skip to content
 		</a>
 		<slot />
+		<script>
+			const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+			if (!reduce) {
+				const light = document.createElement('div');
+				light.className = 'pointer-flashlight';
+				light.setAttribute('aria-hidden', 'true');
+				document.body.appendChild(light);
+
+				const ring = document.createElement('div');
+				ring.className = 'pointer-flash-ring';
+				ring.setAttribute('aria-hidden', 'true');
+				document.body.appendChild(ring);
+
+				let burstTimer = 0;
+				const move = (x: number, y: number) => {
+					light.style.setProperty('--fx', `${x}px`);
+					light.style.setProperty('--fy', `${y}px`);
+					light.classList.add('is-active');
+				};
+
+				const burst = (x: number, y: number) => {
+					move(x, y);
+					light.classList.add('is-press');
+					ring.style.left = `${x}px`;
+					ring.style.top = `${y}px`;
+					ring.classList.remove('is-burst');
+					void ring.offsetWidth;
+					ring.classList.add('is-burst');
+					window.clearTimeout(burstTimer);
+					burstTimer = window.setTimeout(() => {
+						light.classList.remove('is-press');
+						ring.classList.remove('is-burst');
+					}, 420);
+				};
+
+				window.addEventListener(
+					'pointermove',
+					(e) => {
+						if (e.pointerType === 'mouse' || e.pointerType === 'pen') move(e.clientX, e.clientY);
+					},
+					{ passive: true },
+				);
+
+				window.addEventListener(
+					'pointerdown',
+					(e) => {
+						burst(e.clientX, e.clientY);
+					},
+					{ passive: true },
+				);
+
+				window.addEventListener(
+					'pointerleave',
+					() => {
+						light.classList.remove('is-active', 'is-press');
+					},
+					{ passive: true },
+				);
+			}
+		</script>
 	</body>
 </html>
