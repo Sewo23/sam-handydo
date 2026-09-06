@@ -136,32 +136,34 @@ const areas = [...SITE.areasServed, ...SITE.areasServed];
 </style>
 
 <script>
-	const hero = document.querySelector<HTMLElement>('[data-hero]');
-	const parallax = document.querySelector<HTMLElement>('[data-hero-parallax]');
-	const floatEl = document.querySelector<HTMLElement>('[data-hero-float]');
-	if (!hero || !parallax) return;
+	(() => {
+		const hero = document.querySelector<HTMLElement>('[data-hero]');
+		const parallax = document.querySelector<HTMLElement>('[data-hero-parallax]');
+		const floatEl = document.querySelector<HTMLElement>('[data-hero-float]');
+		if (!hero || !parallax) return;
 
-	const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-	if (reduce) return;
+		const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		if (reduce) return;
 
-	const onMove = (e: PointerEvent) => {
-		if (e.pointerType === 'touch') return;
-		const rect = hero.getBoundingClientRect();
-		const x = (e.clientX - rect.left) / rect.width - 0.5;
-		const y = (e.clientY - rect.top) / rect.height - 0.5;
-		parallax.style.transform = `translate3d(${x * 18}px, ${y * 12}px, 0)`;
-		if (floatEl) {
-			floatEl.style.transform = `translate3d(${x * -10}px, ${y * -8}px, 0)`;
-		}
-	};
+		const onMove = (e: PointerEvent) => {
+			if (e.pointerType === 'touch') return;
+			const rect = hero.getBoundingClientRect();
+			const x = (e.clientX - rect.left) / rect.width - 0.5;
+			const y = (e.clientY - rect.top) / rect.height - 0.5;
+			parallax.style.transform = `translate3d(${x * 18}px, ${y * 12}px, 0)`;
+			if (floatEl) {
+				floatEl.style.transform = `translate3d(${x * -10}px, ${y * -8}px, 0)`;
+			}
+		};
 
-	hero.addEventListener('pointermove', onMove, { passive: true });
-	hero.addEventListener(
-		'pointerleave',
-		() => {
-			parallax.style.transform = '';
-			if (floatEl) floatEl.style.transform = '';
-		},
-		{ passive: true },
-	);
+		hero.addEventListener('pointermove', onMove, { passive: true });
+		hero.addEventListener(
+			'pointerleave',
+			() => {
+				parallax.style.transform = '';
+				if (floatEl) floatEl.style.transform = '';
+			},
+			{ passive: true },
+		);
+	})();
 </script>

@@ -212,89 +212,91 @@ const slides = [...pillars, ...pillars];
 </style>
 
 <script>
-	const root = document.querySelector<HTMLElement>('[data-work-carousel]');
-	if (!root) return;
+	(() => {
+		const root = document.querySelector<HTMLElement>('[data-work-carousel]');
+		if (!root) return;
 
-	const viewport = root.querySelector<HTMLElement>('[data-carousel-viewport]');
-	const lightbox = root.querySelector<HTMLDialogElement>('[data-film-lightbox]');
-	const closeBtn = root.querySelector<HTMLButtonElement>('[data-close-film]');
-	const lightboxVideo = root.querySelector<HTMLVideoElement>('[data-lightbox-video]');
-	const emptyState = root.querySelector<HTMLElement>('[data-lightbox-empty]');
-	const titleEl = root.querySelector<HTMLElement>('[data-lightbox-title]');
-	const subtitleEl = root.querySelector<HTMLElement>('[data-lightbox-subtitle]');
-	const descEl = root.querySelector<HTMLElement>('[data-lightbox-description]');
-	if (!viewport || !lightbox || !lightboxVideo || !emptyState || !titleEl || !subtitleEl || !descEl) return;
+		const viewport = root.querySelector<HTMLElement>('[data-carousel-viewport]');
+		const lightbox = root.querySelector<HTMLDialogElement>('[data-film-lightbox]');
+		const closeBtn = root.querySelector<HTMLButtonElement>('[data-close-film]');
+		const lightboxVideo = root.querySelector<HTMLVideoElement>('[data-lightbox-video]');
+		const emptyState = root.querySelector<HTMLElement>('[data-lightbox-empty]');
+		const titleEl = root.querySelector<HTMLElement>('[data-lightbox-title]');
+		const subtitleEl = root.querySelector<HTMLElement>('[data-lightbox-subtitle]');
+		const descEl = root.querySelector<HTMLElement>('[data-lightbox-description]');
+		if (!viewport || !lightbox || !lightboxVideo || !emptyState || !titleEl || !subtitleEl || !descEl) return;
 
-	const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-	viewport.addEventListener('pointerenter', () => viewport.classList.add('is-paused'));
-	viewport.addEventListener('pointerleave', () => {
-		if (!root.classList.contains('is-lightbox-open')) viewport.classList.remove('is-paused');
-	});
+		viewport.addEventListener('pointerenter', () => viewport.classList.add('is-paused'));
+		viewport.addEventListener('pointerleave', () => {
+			if (!root.classList.contains('is-lightbox-open')) viewport.classList.remove('is-paused');
+		});
 
-	const previews = root.querySelectorAll<HTMLVideoElement>('[data-carousel-preview]');
-	previews.forEach((video) => {
-		void video.play().catch(() => {});
-	});
+		const previews = root.querySelectorAll<HTMLVideoElement>('[data-carousel-preview]');
+		previews.forEach((video) => {
+			void video.play().catch(() => {});
+		});
 
-	const openFilm = (btn: HTMLButtonElement) => {
-		const title = btn.dataset.title ?? '';
-		const subtitle = btn.dataset.subtitle ?? '';
-		const description = btn.dataset.description ?? '';
-		const videoSrc = btn.dataset.video ?? '';
-		const poster = btn.dataset.poster ?? '';
+		const openFilm = (btn: HTMLButtonElement) => {
+			const title = btn.dataset.title ?? '';
+			const subtitle = btn.dataset.subtitle ?? '';
+			const description = btn.dataset.description ?? '';
+			const videoSrc = btn.dataset.video ?? '';
+			const poster = btn.dataset.poster ?? '';
 
-		titleEl.textContent = title;
-		subtitleEl.textContent = subtitle;
-		descEl.textContent = description;
+			titleEl.textContent = title;
+			subtitleEl.textContent = subtitle;
+			descEl.textContent = description;
 
-		root.classList.add('is-lightbox-open');
-		viewport.classList.add('is-paused');
+			root.classList.add('is-lightbox-open');
+			viewport.classList.add('is-paused');
 
-		if (videoSrc) {
-			emptyState.hidden = true;
-			lightboxVideo.hidden = false;
-			lightboxVideo.src = videoSrc;
-			lightboxVideo.poster = poster;
-			lightboxVideo.currentTime = 0;
-			lightbox.showModal();
-			void lightboxVideo.play().catch(() => {});
-		} else {
+			if (videoSrc) {
+				emptyState.hidden = true;
+				lightboxVideo.hidden = false;
+				lightboxVideo.src = videoSrc;
+				lightboxVideo.poster = poster;
+				lightboxVideo.currentTime = 0;
+				lightbox.showModal();
+				void lightboxVideo.play().catch(() => {});
+			} else {
+				lightboxVideo.pause();
+				lightboxVideo.removeAttribute('src');
+				lightboxVideo.load();
+				lightboxVideo.hidden = true;
+				emptyState.hidden = false;
+				lightbox.showModal();
+			}
+		};
+
+		const closeFilm = () => {
 			lightboxVideo.pause();
 			lightboxVideo.removeAttribute('src');
 			lightboxVideo.load();
-			lightboxVideo.hidden = true;
-			emptyState.hidden = false;
-			lightbox.showModal();
+			lightbox.close();
+			root.classList.remove('is-lightbox-open');
+			viewport.classList.remove('is-paused');
+		};
+
+		root.querySelectorAll<HTMLButtonElement>('[data-open-film]').forEach((btn) => {
+			btn.addEventListener('click', () => openFilm(btn));
+		});
+
+		closeBtn?.addEventListener('click', closeFilm);
+
+		lightbox.addEventListener('click', (e) => {
+			const shell = lightbox.querySelector('.film-lightbox-shell');
+			if (e.target === shell || e.target === lightbox) closeFilm();
+		});
+
+		lightbox.addEventListener('cancel', (e) => {
+			e.preventDefault();
+			closeFilm();
+		});
+
+		if (reduce) {
+			viewport.classList.add('is-paused');
 		}
-	};
-
-	const closeFilm = () => {
-		lightboxVideo.pause();
-		lightboxVideo.removeAttribute('src');
-		lightboxVideo.load();
-		lightbox.close();
-		root.classList.remove('is-lightbox-open');
-		viewport.classList.remove('is-paused');
-	};
-
-	root.querySelectorAll<HTMLButtonElement>('[data-open-film]').forEach((btn) => {
-		btn.addEventListener('click', () => openFilm(btn));
-	});
-
-	closeBtn?.addEventListener('click', closeFilm);
-
-	lightbox.addEventListener('click', (e) => {
-		const shell = lightbox.querySelector('.film-lightbox-shell');
-		if (e.target === shell || e.target === lightbox) closeFilm();
-	});
-
-	lightbox.addEventListener('cancel', (e) => {
-		e.preventDefault();
-		closeFilm();
-	});
-
-	if (reduce) {
-		viewport.classList.add('is-paused');
-	}
+	})();
 </script>
