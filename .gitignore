@@ -22,3 +22,13 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Keep only web-optimised media in git (not phone originals)
+public/videos/*.MOV
+public/videos/*.HEIC
+public/videos/IMG_*.mp4
+public/videos/IMG_*.JPG
+public/videos/IMG_*.jpg
+public/videos/33.mp4
+public/videos/44.mp4
+public/videos/_*.jpg

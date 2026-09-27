@@ -23,7 +23,7 @@ const slides = [...pillars, ...pillars];
 				One craftsman.<br />Every corner of your property.
 			</h2>
 			<p class="mt-2 font-sans text-sm text-ink-soft">
-				Films drift slowly — tap one to enlarge and play.
+				Films and photos from the work — drifting slowly across the page.
 			</p>
 		</div>
 	</div>
@@ -40,32 +40,30 @@ const slides = [...pillars, ...pillars];
 		>
 			<div class="carousel-rail flex gap-5 md:gap-6 w-max will-change-transform" data-carousel-rail>
 				{
-					slides.map((pillar, index) => {
+					slides.map((pillar) => {
 						const icon = icons[pillar.icon as IconKey] ?? icons.tools;
-						const key = `${pillar.title}-${index}`;
 						return (
 							<article class="carousel-slide shrink-0 w-[62vw] sm:w-[240px] md:w-[280px]">
-								<button
-									type="button"
-									class="media-well group relative block w-full aspect-[3/4] overflow-hidden rounded-2xl bg-forest-deep border border-gold/20 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
-									data-open-film
-									data-title={pillar.title}
-									data-subtitle={pillar.subtitle}
-									data-description={pillar.description}
-									data-video={pillar.video || ''}
-									data-poster={pillar.poster || ''}
-									aria-label={`Open ${pillar.title}`}
-								>
+								<div class="media-well relative aspect-[3/4] overflow-hidden rounded-2xl bg-forest-deep border border-gold/20">
 									{pillar.video ? (
 										<video
-											class="absolute inset-0 h-full w-full object-cover pointer-events-none"
+											class="absolute inset-0 h-full w-full object-cover"
 											src={pillar.video}
 											poster={pillar.poster || undefined}
 											muted
 											playsinline
 											loop
+											autoplay
 											preload="metadata"
 											data-carousel-preview
+										/>
+									) : pillar.image ? (
+										<img
+											src={pillar.image}
+											alt=""
+											class="absolute inset-0 h-full w-full object-contain bg-forest-deep"
+											loading="lazy"
+											decoding="async"
 										/>
 									) : (
 										<div class="absolute inset-0" aria-hidden="true">
@@ -74,7 +72,7 @@ const slides = [...pillars, ...pillars];
 												style="background: radial-gradient(circle at 30% 25%, rgba(196,160,53,0.22), transparent 55%), linear-gradient(160deg, #122419, #1a3328 55%, #2a4a3a);"
 											/>
 											<div class="absolute inset-0 flex items-center justify-center">
-												<span class="inline-flex h-14 w-14 items-center justify-center rounded-full border border-gold/35 text-gold-light transition-transform duration-300 group-hover:scale-110">
+												<span class="inline-flex h-14 w-14 items-center justify-center rounded-full border border-gold/35 text-gold-light">
 													<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7L8 5z" /></svg>
 												</span>
 											</div>
@@ -91,7 +89,7 @@ const slides = [...pillars, ...pillars];
 										<h3 class="font-serif text-2xl text-ivory font-medium mb-2">{pillar.title}</h3>
 										<p class="font-sans text-sm text-ivory/65 leading-relaxed line-clamp-2">{pillar.description}</p>
 									</div>
-								</button>
+								</div>
 							</article>
 						);
 					})
@@ -99,48 +97,6 @@ const slides = [...pillars, ...pillars];
 			</div>
 		</div>
 	</div>
-
-	<!-- Expanded film lightbox -->
-	<dialog
-		class="film-lightbox m-0 max-w-none w-full h-full bg-transparent p-0 backdrop:bg-forest-deep/80"
-		data-film-lightbox
-		aria-label="Expanded film"
-	>
-		<div class="film-lightbox-shell flex min-h-full items-center justify-center p-4 md:p-8">
-			<div class="relative w-full max-w-4xl overflow-hidden rounded-2xl border border-gold/25 bg-forest-deep shadow-2xl shadow-black/40">
-				<button
-					type="button"
-					class="absolute top-3 right-3 z-20 inline-flex h-10 w-10 items-center justify-center rounded-full border border-gold/30 bg-forest-deep/80 text-ivory hover:border-gold hover:text-gold-light"
-					data-close-film
-					aria-label="Close"
-				>
-					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
-				</button>
-
-				<div class="relative aspect-video bg-black">
-					<video
-						class="absolute inset-0 h-full w-full object-contain"
-						controls
-						playsinline
-						data-lightbox-video
-					></video>
-					<div
-						class="absolute inset-0 flex items-center justify-center bg-forest-deep"
-						data-lightbox-empty
-						hidden
-					>
-						<p class="font-sans text-sm uppercase tracking-[0.25em] text-ivory/50">Short film coming soon</p>
-					</div>
-				</div>
-
-				<div class="p-5 md:p-6 border-t border-gold/15">
-					<p class="font-sans text-[10px] uppercase tracking-[0.25em] text-gold-light mb-2" data-lightbox-subtitle></p>
-					<h3 class="font-serif text-2xl md:text-3xl text-ivory font-medium mb-2" data-lightbox-title></h3>
-					<p class="font-sans text-sm text-ivory/65 leading-relaxed" data-lightbox-description></p>
-				</div>
-			</div>
-		</div>
-	</dialog>
 </section>
 
 <style>
@@ -152,8 +108,7 @@ const slides = [...pillars, ...pillars];
 		animation: filmDrift 55s linear infinite;
 	}
 
-	.carousel-viewport.is-paused .carousel-rail,
-	[data-work-carousel].is-lightbox-open .carousel-rail {
+	.carousel-viewport.is-paused .carousel-rail {
 		animation-play-state: paused;
 	}
 
@@ -185,25 +140,6 @@ const slides = [...pillars, ...pillars];
 		background: linear-gradient(270deg, #faf8f4, transparent);
 	}
 
-	.media-well {
-		cursor: pointer;
-		transition: transform 0.35s ease, box-shadow 0.35s ease;
-	}
-
-	.media-well:hover {
-		transform: translateY(-3px);
-		box-shadow: 0 18px 40px -18px rgba(18, 36, 25, 0.45);
-	}
-
-	.film-lightbox[open] {
-		display: block;
-	}
-
-	.film-lightbox::backdrop {
-		background: rgba(18, 36, 25, 0.82);
-		backdrop-filter: blur(6px);
-	}
-
 	@media (prefers-reduced-motion: reduce) {
 		.carousel-rail {
 			animation: none;
@@ -217,82 +153,15 @@ const slides = [...pillars, ...pillars];
 		if (!root) return;
 
 		const viewport = root.querySelector<HTMLElement>('[data-carousel-viewport]');
-		const lightbox = root.querySelector<HTMLDialogElement>('[data-film-lightbox]');
-		const closeBtn = root.querySelector<HTMLButtonElement>('[data-close-film]');
-		const lightboxVideo = root.querySelector<HTMLVideoElement>('[data-lightbox-video]');
-		const emptyState = root.querySelector<HTMLElement>('[data-lightbox-empty]');
-		const titleEl = root.querySelector<HTMLElement>('[data-lightbox-title]');
-		const subtitleEl = root.querySelector<HTMLElement>('[data-lightbox-subtitle]');
-		const descEl = root.querySelector<HTMLElement>('[data-lightbox-description]');
-		if (!viewport || !lightbox || !lightboxVideo || !emptyState || !titleEl || !subtitleEl || !descEl) return;
+		if (!viewport) return;
 
 		const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 		viewport.addEventListener('pointerenter', () => viewport.classList.add('is-paused'));
-		viewport.addEventListener('pointerleave', () => {
-			if (!root.classList.contains('is-lightbox-open')) viewport.classList.remove('is-paused');
-		});
+		viewport.addEventListener('pointerleave', () => viewport.classList.remove('is-paused'));
 
-		const previews = root.querySelectorAll<HTMLVideoElement>('[data-carousel-preview]');
-		previews.forEach((video) => {
+		root.querySelectorAll<HTMLVideoElement>('[data-carousel-preview]').forEach((video) => {
 			void video.play().catch(() => {});
-		});
-
-		const openFilm = (btn: HTMLButtonElement) => {
-			const title = btn.dataset.title ?? '';
-			const subtitle = btn.dataset.subtitle ?? '';
-			const description = btn.dataset.description ?? '';
-			const videoSrc = btn.dataset.video ?? '';
-			const poster = btn.dataset.poster ?? '';
-
-			titleEl.textContent = title;
-			subtitleEl.textContent = subtitle;
-			descEl.textContent = description;
-
-			root.classList.add('is-lightbox-open');
-			viewport.classList.add('is-paused');
-
-			if (videoSrc) {
-				emptyState.hidden = true;
-				lightboxVideo.hidden = false;
-				lightboxVideo.src = videoSrc;
-				lightboxVideo.poster = poster;
-				lightboxVideo.currentTime = 0;
-				lightbox.showModal();
-				void lightboxVideo.play().catch(() => {});
-			} else {
-				lightboxVideo.pause();
-				lightboxVideo.removeAttribute('src');
-				lightboxVideo.load();
-				lightboxVideo.hidden = true;
-				emptyState.hidden = false;
-				lightbox.showModal();
-			}
-		};
-
-		const closeFilm = () => {
-			lightboxVideo.pause();
-			lightboxVideo.removeAttribute('src');
-			lightboxVideo.load();
-			lightbox.close();
-			root.classList.remove('is-lightbox-open');
-			viewport.classList.remove('is-paused');
-		};
-
-		root.querySelectorAll<HTMLButtonElement>('[data-open-film]').forEach((btn) => {
-			btn.addEventListener('click', () => openFilm(btn));
-		});
-
-		closeBtn?.addEventListener('click', closeFilm);
-
-		lightbox.addEventListener('click', (e) => {
-			const shell = lightbox.querySelector('.film-lightbox-shell');
-			if (e.target === shell || e.target === lightbox) closeFilm();
-		});
-
-		lightbox.addEventListener('cancel', (e) => {
-			e.preventDefault();
-			closeFilm();
 		});
 
 		if (reduce) {
