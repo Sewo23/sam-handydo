@@ -49,7 +49,7 @@ export const pillars = [
 		description: 'Pressure-washing decks and outdoor surfaces — restoring timber so the garden feels fresh again.',
 		icon: 'fence',
 		video: '',
-		image: '/videos/outdoor.jpg',
+		image: '',
 		poster: '',
 	},
 	{
@@ -67,7 +67,7 @@ export const pillars = [
 		description: 'Prep, paint, and finish — one team on the whole job so the room is left clean, bright, and ready to live in.',
 		icon: 'hands',
 		video: '',
-		image: '/videos/craftsman.jpg',
+		image: '',
 		poster: '',
 	},
 ] as const;
